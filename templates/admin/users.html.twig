@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - Utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Utilisateur</h1>
+            <p>Gérez vos utilisateur</p>
+        </div>
+
+        <div class="card">
+            <div class="card-head">
+                <h2>{{ users|length }} utilisateurs</h2>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Mail</th>
+                        <th>Roles</th>
+                        <th>Docteur associé</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>
+                                <strong>{{ user.email }}</strong>
+                            </td>
+                            <td>
+                                {% for role in user.roles %}
+                                    <span class="badge badge-info">{{ available_roles[role]|default(role) }}</span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% if user.doctor %}
+                                    <span class="muted">{{ user.doctor.getFullName() }}</span>
+                                {% else %}
+                                    <span class="muted">Aucun</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-dark btn-sm">Editer</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucun utilisateur trouvé.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

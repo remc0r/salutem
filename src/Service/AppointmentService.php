@@ -5,16 +5,18 @@ namespace App\Service;
 use App\Entity\Appointment;
 use App\Repository\AppointmentRepository;
 use App\Repository\DoctorRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 
 final class AppointmentService
 {
     public function __construct(
-        private EntityManagerInterface $em,
-        private AppointmentRepository $appointmentRepository,
-        private DoctorRepository $doctorRepository
-    ) {
+        private readonly EntityManagerInterface $em,
+        private readonly AppointmentRepository  $appointmentRepository,
+        private readonly DoctorRepository       $doctorRepository,
+    )
+    {
     }
 
     public function assignToDoctor(Appointment $appointment, $doctor): void
@@ -51,6 +53,9 @@ final class AppointmentService
         }
 
         $doctor = $this->doctorRepository->findOneBy(['email' => $user->getEmail()]);
+        if (null === $doctor and null != $user->getDoctor()) {
+            $doctor = $this->doctorRepository->find($user->getDoctor()->getId());
+        }
         if (!$doctor) {
             return [];
         }

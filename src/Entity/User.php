@@ -33,6 +33,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\ManyToOne(targetEntity: Doctor::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?Doctor  $doctor = null;
+
+    public function getDoctor(): ?Doctor
+    {
+        return $this->doctor;
+    }
+
+    public function setDoctor(?Doctor $doctor): void
+    {
+        $this->doctor = $doctor;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

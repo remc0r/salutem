@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - Modifier un utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Modifier un utilisateur</h1>
+            <p>Gérez les rôles de {{ user.email }}</p>
+        </div>
+
+        <div class="card">
+            {{ form_start(form) }}
+
+                {{ form_row(form.email) }}
+                {{ form_row(form.doctor) }}
+                {{ form_row(form.roles) }}
+                <div class="form-inline">
+                    <button type="submit" class="btn btn-dark btn-sm">Enregistrer</button>
+                    <a href="{{ path('admin_users_index') }}" class="btn btn-light btn-sm">Retour</a>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
