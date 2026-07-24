@@ -33,6 +33,8 @@ class DoctorFixtures extends Fixture implements DependentFixtureInterface
         $doctor2->addSpecialty($this->getReference('medecin_generaliste', Specialty::class));
         $manager->persist($doctor2);
 
+        $this->addReference('doctor', $doctor2);
+
         $doctor3 = new Doctor();
         $doctor3->setFirstName('Maria');
         $doctor3->setLastName('Martin');
