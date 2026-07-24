@@ -91,6 +91,12 @@
                             <li><a href={{ path('admin_appointments_index') }}>Affecter rdv</a></li>
 
                         {% endif %}
+                        {% if is_granted('IS_IMPERSONATOR') %}
+                            <li><a href="{{ path('app_home', {'_switch_user': '_exit'}) }}">
+                                Revenir à mon compte admin
+                            </a>
+                            </li>
+                        {% endif %}
                     {% else %}
                         <li><a href={{ path('app_login') }}>Se connecter</a></li>
                         <li><a href={{ path('app_register') }}> Créer un compte </a></li>

@@ -22,6 +22,8 @@
                         <th>Roles</th>
                         <th>Docteur associé</th>
                         <th>Action</th>
+                        <th>Impersonnification</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -44,6 +46,9 @@
                             </td>
                             <td>
                                 <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-dark btn-sm">Editer</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_home') ~ '?_switch_user=' ~ user.email() }}" class="btn btn-dark btn-sm">Se connecter en tant que</a>
                             </td>
                         </tr>
                     {% else %}
