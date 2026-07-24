@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Accueil
+{% endblock %}
+
+{% block body %}
+
+    <section class="doctors" id="doctors">
+        <div class="container">
+            {% for doctor in doctors %}
+                {% include 'doctor/_thumbnail.html.twig' with {'doctor': doctor} only %}
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

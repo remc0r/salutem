@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demandes de rendez-vous - Administration Salutem</title>
+    <link href="https://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="admin-header">
+    <div class="container">
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M228.3 469.1L47.6 300.4c-4.2-3.9-8.2-8.1-11.9-12.4l87 0c22.6 0 43-13.6 51.7-34.5l10.5-25.2 49.3 109.5c3.8 8.5 12.1 14 21.4 14.1s17.8-5 22-13.3L320 253.7l1.7 3.4c9.5 19 28.9 31 50.1 31l104.5 0c-3.7 4.3-7.7 8.5-11.9 12.4L283.7 469.1c-7.5 7-17.4 10.9-27.7 10.9s-20.2-3.9-27.7-10.9zM503.7 240l-132 0c-3 0-5.8-1.7-7.2-4.4l-23.2-46.3c-4.1-8.1-12.4-13.3-21.5-13.3s-17.4 5.1-21.5 13.3l-41.4 82.8L205.9 158.2c-3.9-8.7-12.7-14.3-22.2-14.1s-18.1 5.9-21.8 14.8l-31.8 76.3c-1.2 3-4.2 4.9-7.4 4.9L16 240c-2.6 0-5 .4-7.3 1.1C3 225.2 0 208.2 0 190.9l0-5.8c0-69.9 50.5-129.5 119.4-141C165 36.5 211.4 51.4 244 84l12 12 12-12c32.6-32.6 79-47.5 124.6-39.9C461.5 55.6 512 115.2 512 185.1l0 5.8c0 16.9-2.8 33.5-8.3 49.1z"/></svg>
+            Salutem
+            <small>Administration</small>
+        </div>
+        <div class="session">
+            <span>Connecté en tant qu'<strong>administrateur</strong></span>
+            <a href="index.html">Voir le site</a>
+            <a href="login.html">Déconnexion</a>
+        </div>
+    </div>
+</header>
+
+<nav class="admin-nav">
+    <div class="container">
+        <ul>
+            <li><a href="admin.html" class="active">Demandes de rendez-vous</a></li>
+            <li><a href="#">Docteurs</a></li>
+            <li><a href="#">Spécialités</a></li>
+            <li><a href="#">Horaires d'ouverture</a></li>
+            <li><a href="#">Informations de contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="admin-main">
+    <div class="container">
+        <div class="page-header">
+            <h1>Demandes de rendez-vous</h1>
+            <p>Validez une demande en l'affectant à un docteur, ou refusez-la pour la supprimer.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-head">
+                <h2>5 demandes</h2>
+                <form action="#" method="get" class="form-inline">
+                    <label for="status">Filtrer&nbsp;:</label>
+                    <select id="status" name="status">
+                        <option value="">Toutes</option>
+                        <option value="pending">En attente</option>
+                        <option value="confirmed">Validées</option>
+                    </select>
+                    <button type="submit" class="btn btn-dark btn-sm">Appliquer</button>
+                </form>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Demande</th>
+                        <th>Patient</th>
+                        <th>Créneau souhaité</th>
+                        <th>Motif</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <strong>#1042</strong>
+                            <span class="muted">20/07/2026 09:14</span>
+                        </td>
+                        <td>
+                            Marie Lefèvre
+                            <span class="muted">m.lefevre@exemple.fr</span>
+                            <span class="muted">0612345678</span>
+                        </td>
+                        <td>Lundi 27/07/2026 – matin</td>
+                        <td>Consultation de suivi</td>
+                        <td><span class="badge badge-pending">En attente</span></td>
+                        <td>
+                            <form action="#" method="post" class="form-inline">
+                                <select name="doctor" aria-label="Affecter à un docteur">
+                                    <option value="">Affecter à…</option>
+                                    <option>Jack Smith</option>
+                                    <option>Anna Jones</option>
+                                    <option>Marc Dubois</option>
+                                </select>
+                                <button type="submit" class="btn btn-light btn-sm">Valider</button>
+                                <button type="submit" formaction="#" class="btn btn-danger btn-sm">Refuser</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>#1041</strong>
+                            <span class="muted">19/07/2026 18:02</span>
+                        </td>
+                        <td>
+                            Thomas Barré
+                            <span class="muted">t.barre@exemple.fr</span>
+                            <span class="muted">0698765432</span>
+                        </td>
+                        <td>Mercredi 29/07/2026 – après-midi</td>
+                        <td>Douleurs lombaires</td>
+                        <td><span class="badge badge-pending">En attente</span></td>
+                        <td>
+                            <form action="#" method="post" class="form-inline">
+                                <select name="doctor" aria-label="Affecter à un docteur">
+                                    <option value="">Affecter à…</option>
+                                    <option>Jack Smith</option>
+                                    <option>Anna Jones</option>
+                                    <option>Marc Dubois</option>
+                                </select>
+                                <button type="submit" class="btn btn-light btn-sm">Valider</button>
+                                <button type="submit" formaction="#" class="btn btn-danger btn-sm">Refuser</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>#1040</strong>
+                            <span class="muted">19/07/2026 11:47</span>
+                        </td>
+                        <td>
+                            Sophie Nguyen
+                            <span class="muted">s.nguyen@exemple.fr</span>
+                            <span class="muted">0655112233</span>
+                        </td>
+                        <td>Jeudi 23/07/2026 – matin</td>
+                        <td>Première consultation</td>
+                        <td><span class="badge badge-pending">En attente</span></td>
+                        <td>
+                            <form action="#" method="post" class="form-inline">
+                                <select name="doctor" aria-label="Affecter à un docteur">
+                                    <option value="">Affecter à…</option>
+                                    <option>Jack Smith</option>
+                                    <option>Anna Jones</option>
+                                    <option>Marc Dubois</option>
+                                </select>
+                                <button type="submit" class="btn btn-light btn-sm">Valider</button>
+                                <button type="submit" formaction="#" class="btn btn-danger btn-sm">Refuser</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>#1039</strong>
+                            <span class="muted">18/07/2026 15:20</span>
+                        </td>
+                        <td>
+                            Karim Haddad
+                            <span class="muted">k.haddad@exemple.fr</span>
+                            <span class="muted">0677889900</span>
+                        </td>
+                        <td>Vendredi 24/07/2026 – après-midi</td>
+                        <td>Suivi du sportif</td>
+                        <td><span class="badge badge-confirmed">Validée</span>
+                            <span class="muted">Jack Smith</span></td>
+                        <td>
+                            <form action="#" method="post" class="form-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>#1038</strong>
+                            <span class="muted">17/07/2026 08:55</span>
+                        </td>
+                        <td>
+                            Élise Moreau
+                            <span class="muted">e.moreau@exemple.fr</span>
+                            <span class="muted">0644556677</span>
+                        </td>
+                        <td>Mardi 21/07/2026 – matin</td>
+                        <td>Pédiatrie</td>
+                        <td><span class="badge badge-confirmed">Validée</span>
+                            <span class="muted">Anna Jones</span></td>
+                        <td>
+                            <form action="#" method="post" class="form-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

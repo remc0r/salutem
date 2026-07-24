@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes rendez-vous (docteur){% endblock %}
+
+{% block body %}
+    <h1>Rendez-vous affectés</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Spécialité</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.date ? appointment.date|date('Y-m-d H:i') : '' }}</td>
+                <td>{{ appointment.patientFirstName }} {{ appointment.patientName }} - {{ appointment.patientMail }}</td>
+                <td>{{ appointment.specialty ? appointment.specialty.name : '' }}</td>
+                <td>{{ appointment.message }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun rendez-vous affecté.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

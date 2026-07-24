@@ -9,7 +9,7 @@
         <article class="container">
             <h1>Salutem</h1>
             <h2>Maison de santé</h2>
-            <a href="#appointment" class="btn btn-dark">Prendre rendez-vous</a>
+            <a href="{{ path('app_home') }}#appointment" class="btn btn-dark">Prendre rendez-vous</a>
         </article>
     </section>
     <section class="home-boxes">
@@ -21,36 +21,7 @@
             </article>
             <article>
                 <h3>Horaires d'ouverture</h3>
-                <table class="opening-hours">
-                    <tr>
-                        <td>Lundi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr class="today">
-                        <td>Mardi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Mercredi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Jeudi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Vendredi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Samedi</td>
-                        <td class="hours">9h - 12h</td>
-                    </tr>
-                    <tr>
-                        <td>Dimanche</td>
-                        <td class="hours">Fermé</td>
-                    </tr>
-                </table>
+                {% include 'opening_hour/_table.html.twig' %}
             </article>
             <article>
                 <h3>Numéro d'urgence</h3>
@@ -66,28 +37,10 @@
     <section class="doctors" id="doctors">
         <div class="container">
             <article>
-                <form class="form-appointment">
+                <div class="form-appointment">
                     <h3>Prendre rendez-vous</h3>
-                    <input type="text" required placeholder="Nom">
-                    <input type="text" required placeholder="Prénom">
-                    <input type="email" placeholder="Email">
-                    <input type="tel" required placeholder="Téléphone">
-                    <input type="date" required placeholder="Date">
-                    <input type="time" step="900" required placeholder="Heure">
-                    <select required >
-                        <option disabled selected>Choisissez une spécialité</option>
-                        <option>Médecin Généraliste</option>
-                        <option>Dentiste</option>
-                        <option>Infirmier</option>
-                        <option>Homéopathe</option>
-                        <option>Osthéopathe</option>
-                    </select>
-                    <textarea placeholder="Votre message"></textarea>
-                    <button type="submit" class="btn btn-light">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
-                        Envoyer
-                    </button>
-                </form>
+                {{ include('appointment/_form.html.twig', {'form': form}) }}
+                </div>
             </article>
             {% for doctor in doctors %}
                 {% include 'doctor/_thumbnail.html.twig' with {'doctor': doctor} only %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OpeningHour index{% endblock %}
+
+{% block body %}
+    <h1>OpeningHour index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Day</th>
+                <th>DayOrder</th>
+                <th>OpensAt</th>
+                <th>ClosesAt</th>
+                <th>IsClosed</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for opening_hour in opening_hours %}
+            <tr>
+                <td>{{ opening_hour.id }}</td>
+                <td>{{ opening_hour.day.value }}</td>
+                <td>{{ opening_hour.dayOrder }}</td>
+                <td>{{ opening_hour.opensAt ? opening_hour.opensAt|date('H:i:s') : '' }}</td>
+                <td>{{ opening_hour.closesAt ? opening_hour.closesAt|date('H:i:s') : '' }}</td>
+                <td>{{ opening_hour.isClosed ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_opening_hour_show', {'id': opening_hour.id}) }}">show</a>
+                    <a href="{{ path('app_opening_hour_edit', {'id': opening_hour.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_opening_hour_new') }}">Create new</a>
+{% endblock %}

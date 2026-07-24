@@ -1,0 +1,12 @@
+{% set currentDay = getDay() %}
+{% set openingHours = getOpeningHours() %}
+
+<table class="opening-hours">
+    {% for openingHour in openingHours %}
+        <tr class="{{ openingHour.day == currentDay ? 'today' : '' }}">
+            <td>{{ openingHour.day.value|capitalize }}</td>
+            <td class="hours">{{ openingHour.formattedHours }}</td>
+        </tr>
+    {% endfor %}
+</table>
+

@@ -19,8 +19,17 @@
         <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
         {% endif %}
+
     </head>
     <body>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% set open = isOpen(getTodayOpeningHours()) %}
     <header>
         <div class="header-top">
             <div class="container">
@@ -56,7 +65,7 @@
                     Salutem
                 </div>
                 <div class="status">
-                    Votre centre est actuellement <span class="open">ouvert</span>
+                    Votre centre est actuellement {% if open %}<span class="open">ouvert {% else %} <span class="close">fermé</span>{% endif %}</span>
                 </div>
             </div>
         </div>
@@ -66,10 +75,20 @@
         <div class="container">
             <nav>
                 <ul>
-                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href={{ path('app_home') }}>Accueil</a></li>
                     <li><a href="#">La maison médicale</a></li>
-                    <li><a href="index.html#doctors">Nos docteurs</a></li>
+                    <li><a href={{ path('app_doctors') }}>Nos docteurs</a></li>
                     <li><a href="#">Nous contacter</a></li>
+                    {% if app.user %}
+                        <li><a href={{ path('app_logout') }}>Se déconnecter</a></li>
+                        <li><a href={{ path('app_appointment_new') }}>Prendre rendez-vous</a></li>
+                        <li><a href={{ path('app_my_appointments') }}>Mes rendez-vous</a></li>
+                        <li><a href={{ path('app_doctor_appointments') }}>Mes rendez-vous patient</a></li>
+
+                    {% else %}
+                        <li><a href={{ path('app_login') }}>Se connecter</a></li>
+                        <li><a href={{ path('app_register') }}> Créer un compte </a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>
@@ -107,36 +126,7 @@
             </article>
             <article>
                 <h3>Horaires d'ouverture</h3>
-                <table class="opening-hours">
-                    <tr>
-                        <td>Lundi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr class="today">
-                        <td>Mardi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Mercredi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Jeudi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Vendredi</td>
-                        <td class="hours">9h - 17h</td>
-                    </tr>
-                    <tr>
-                        <td>Samedi</td>
-                        <td class="hours">9h - 12h</td>
-                    </tr>
-                    <tr>
-                        <td>Dimanche</td>
-                        <td class="hours">Fermé</td>
-                    </tr>
-                </table>
+                {% include 'opening_hour/_table.html.twig' %}
             </article>
         </section>
     </footer>

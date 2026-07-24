@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes rendez-vous{% endblock %}
+
+{% block body %}
+    <h1>Mes rendez-vous</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Spécialité</th>
+            <th>Message</th>
+            <th>Docteur</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.date ? appointment.date|date('Y-m-d H:i') : '' }}</td>
+                <td>{{ appointment.specialty ? appointment.specialty.name : '' }}</td>
+                <td>{{ appointment.message }}</td>
+                <td>{{ appointment.doctor ? appointment.doctor.getFullName() : 'Non affecté' }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun rendez-vous.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Create new Doctor</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.firstName) }}
+        {{ form_row(form.lastName) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.photo) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.specialties) }}
+
+        <button type="submit" class="btn btn-dark">Créer</button>
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} - Ajouter un docteur
+{% endblock %}
+
