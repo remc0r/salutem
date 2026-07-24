@@ -89,6 +89,8 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <li><a href={{ path('admin_users_index') }}>Utilisateurs</a></li>
                             <li><a href={{ path('admin_appointments_index') }}>Affecter rdv</a></li>
+                            <li><a href={{ path('app_opening_hour_index') }}>Modifier horaires</a></li>
+
 
                         {% endif %}
                         {% if is_granted('IS_IMPERSONATOR') %}

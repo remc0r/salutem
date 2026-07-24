@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - Horaires d'ouverture{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1>Horaires d'ouverture</h1>
+                    <p>Gérez les horaires d'ouverture du centre médical</p>
+                </div>
+                <a href="{{ path('admin_opening_hour_new') }}" class="btn btn-dark">+ Ajouter un horaire</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-head">
+                <h2>{{ opening_hours|length }} jour(s) configuré(s)</h2>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Jour</th>
+                        <th>Ordre</th>
+                        <th>Horaires</th>
+                        <th>Statut</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for opening_hour in opening_hours %}
+                        <tr>
+                            <td>
+                                <strong>{{ opening_hour.day.value|capitalize }}</strong>
+                            </td>
+                            <td>
+                                <span class="badge badge-light">{{ opening_hour.dayOrder }}</span>
+                            </td>
+                            <td>
+                                {{ opening_hour.formattedHours }}
+                            </td>
+                            <td>
+                                {% if opening_hour.isClosed %}
+                                    <span class="badge badge-danger">Fermé</span>
+                                {% else %}
+                                    <span class="badge badge-success">Ouvert</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ path('admin_opening_hour_edit', {'id': opening_hour.id}) }}" class="btn btn-dark btn-sm">Modifier</a>
+                                <form method="POST" action="{{ path('admin_opening_hour_delete', {'id': opening_hour.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet horaire ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ opening_hour.id) }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Aucun horaire d'ouverture configuré.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

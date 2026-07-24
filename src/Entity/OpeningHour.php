@@ -6,6 +6,7 @@ use App\Enum\DayOfWeek;
 use App\Repository\OpeningHourRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OpeningHourRepository::class)]
 class OpeningHour
@@ -16,9 +17,16 @@ class OpeningHour
     private ?int $id = null;
 
     #[ORM\Column(length: 20, unique: true, enumType: DayOfWeek::class)]
+    #[Assert\NotNull(message: 'Le jour doit être spécifié.')]
     private ?DayOfWeek $day = null;
 
     #[ORM\Column(unique: true)]
+    #[Assert\NotNull(message: 'L\'ordre du jour doit être spécifié.')]
+    #[Assert\Range(
+        min: 1,
+        max: 7,
+        notInRangeMessage: 'L\'ordre du jour doit être entre 1 et 7.'
+    )]
     private ?int $dayOrder = null;
 
     #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
@@ -43,6 +51,7 @@ class OpeningHour
     public function setDay(DayOfWeek $day): static
     {
         $this->day = $day;
+        $this->dayOrder = $day->order();
 
         return $this;
     }

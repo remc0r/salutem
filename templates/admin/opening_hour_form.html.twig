@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - {{ title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-header">
+            <h1>{{ title }}</h1>
+            <p>Configurez les horaires d'ouverture du centre</p>
+        </div>
+
+        <div class="card">
+            {{ form_start(form) }}
+
+                <div class="form-group">
+                    {{ form_label(form.day) }}
+                    {{ form_widget(form.day) }}
+                    {% if form.day.vars.help %}
+                        <small class="form-text text-muted">{{ form.day.vars.help }}</small>
+                    {% endif %}
+                    {{ form_errors(form.day) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.opensAt) }}
+                    {{ form_widget(form.opensAt) }}
+                    {{ form_errors(form.opensAt) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.closesAt) }}
+                    {{ form_widget(form.closesAt) }}
+                    {{ form_errors(form.closesAt) }}
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        {{ form_widget(form.isClosed) }}
+                        {{ form_label(form.isClosed) }}
+                    </div>
+                    {{ form_errors(form.isClosed) }}
+                </div>
+
+                <div class="form-inline">
+                    <button type="submit" class="btn btn-dark btn-sm">Enregistrer</button>
+                    <a href="{{ path('admin_opening_hours_index') }}" class="btn btn-light btn-sm">Retour</a>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <script>
+        // Synchroniser isClosed avec les champs de temps
+        const isClosedCheckbox = document.getElementById('opening_hour_form_isClosed');
+        const opensAtInput = document.getElementById('opening_hour_form_opensAt');
+        const closesAtInput = document.getElementById('opening_hour_form_closesAt');
+
+        function updateTimeFields() {
+            if (isClosedCheckbox.checked) {
+                opensAtInput.disabled = true;
+                closesAtInput.disabled = true;
+                opensAtInput.value = '';
+                closesAtInput.value = '';
+            } else {
+                opensAtInput.disabled = false;
+                closesAtInput.disabled = false;
+            }
+        }
+
+        isClosedCheckbox.addEventListener('change', updateTimeFields);
+        updateTimeFields();
+    </script>
+{% endblock %}
+
