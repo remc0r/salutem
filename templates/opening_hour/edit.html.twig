@@ -5,9 +5,7 @@
 {% block body %}
     <h1>Edit OpeningHour</h1>
 
-    {{ include('opening_hour/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('admin/opening_hour_form.html.twig') }}
 
-    <a href="{{ path('app_opening_hour_index') }}">back to list</a>
-
-    {{ include('opening_hour/_delete_form.html.twig') }}
+    <a href="{{ path('admin_opening_hours_index') }}">back to list</a>
 {% endblock %}

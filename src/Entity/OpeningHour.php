@@ -6,9 +6,11 @@ use App\Enum\DayOfWeek;
 use App\Repository\OpeningHourRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OpeningHourRepository::class)]
+#[UniqueEntity(fields: ['day'], message: 'Un horaire d\'ouverture existe déjà pour ce jour.')]
 class OpeningHour
 {
     #[ORM\Id]

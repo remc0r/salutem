@@ -4,13 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Appointment;
-use App\Entity\OpeningHour;
 use App\Form\UserType;
-use App\Form\OpeningHourType;
 use App\Repository\AppointmentRepository;
 use App\Repository\DoctorRepository;
 use App\Repository\UserRepository;
-use App\Repository\OpeningHourRepository;
 use App\Service\AppointmentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -120,70 +117,4 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/opening-hours', name: 'admin_opening_hours_index', methods: ['GET'])]
-    public function openingHoursIndex(OpeningHourRepository $openingHourRepository): Response
-    {
-        return $this->render('admin/opening_hours.html.twig', [
-            'opening_hours' => $openingHourRepository->findAllOrdered(),
-        ]);
-    }
-
-    #[Route('/opening-hours/new', name: 'admin_opening_hour_new', methods: ['GET', 'POST'])]
-    public function newOpeningHour(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $openingHour = new OpeningHour();
-        $form = $this->createForm(OpeningHourType::class, $openingHour);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($openingHour);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Horaire d\'ouverture créé avec succès.');
-            return $this->redirectToRoute('admin_opening_hours_index');
-        }
-
-        return $this->render('admin/opening_hour_form.html.twig', [
-            'form' => $form,
-            'opening_hour' => $openingHour,
-            'title' => 'Créer un horaire d\'ouverture',
-        ]);
-    }
-
-    #[Route('/opening-hours/{id}/edit', name: 'admin_opening_hour_edit', methods: ['GET', 'POST'])]
-    public function editOpeningHour(Request $request, OpeningHour $openingHour, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(OpeningHourType::class, $openingHour);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Horaire d\'ouverture modifié avec succès.');
-            return $this->redirectToRoute('admin_opening_hours_index');
-        }
-
-        return $this->render('admin/opening_hour_form.html.twig', [
-            'form' => $form,
-            'opening_hour' => $openingHour,
-            'title' => 'Modifier l\'horaire d\'ouverture',
-        ]);
-    }
-
-    #[Route('/opening-hours/{id}/delete', name: 'admin_opening_hour_delete', methods: ['POST'])]
-    public function deleteOpeningHour(Request $request, OpeningHour $openingHour, EntityManagerInterface $entityManager): Response
-    {
-        $token = $request->request->get('_token');
-        if (!$this->isCsrfTokenValid('delete'.$openingHour->getId(), $token)) {
-            $this->addFlash('danger', 'Jeton CSRF invalide.');
-            return $this->redirectToRoute('admin_opening_hours_index');
-        }
-
-        $day = $openingHour->getDay()?->value ?? 'cet horaire';
-        $entityManager->remove($openingHour);
-        $entityManager->flush();
-
-        $this->addFlash('success', sprintf('L\'horaire d\'ouverture pour %s a été supprimé.', $day));
-        return $this->redirectToRoute('admin_opening_hours_index');
-    }
 }

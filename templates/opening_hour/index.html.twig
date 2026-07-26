@@ -27,8 +27,7 @@
                 <td>{{ opening_hour.closesAt ? opening_hour.closesAt|date('H:i:s') : '' }}</td>
                 <td>{{ opening_hour.isClosed ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_opening_hour_show', {'id': opening_hour.id}) }}">show</a>
-                    <a href="{{ path('app_opening_hour_edit', {'id': opening_hour.id}) }}">edit</a>
+                    <a href="{{ path('admin_opening_hour_edit', {'id': opening_hour.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +38,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_opening_hour_new') }}">Create new</a>
+    <a href="{{ path('admin_opening_hour_new') }}">Create new</a>
 {% endblock %}

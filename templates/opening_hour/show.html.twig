@@ -34,9 +34,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_opening_hour_index') }}">back to list</a>
-
-    <a href="{{ path('app_opening_hour_edit', {'id': opening_hour.id}) }}">edit</a>
-
-    {{ include('opening_hour/_delete_form.html.twig') }}
+    <a href="{{ path('admin_opening_hours_index') }}">back to list</a>
 {% endblock %}
