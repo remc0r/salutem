@@ -1,4 +1,4 @@
-# Salutem ESGI Nantes 2025-2026
+# Salutem ESGI Nantes 2025-2026 - Rémi CORNET
 
 
 ## TODO
